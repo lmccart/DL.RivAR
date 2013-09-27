@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>A6C260D6-59AC-4B32-A18B-021D07F5FACE</string>
+	<key>IDESourceControlProjectName</key>
+	<string>RivAR</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>2DDC90A8-FE3D-4E31-8D20-9A2CD8FE7692</key>
+		<string>ssh://github.com/lmccart/DL.RivAR.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>RivAR.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>2DDC90A8-FE3D-4E31-8D20-9A2CD8FE7692</key>
+		<string>../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>ssh://github.com/lmccart/DL.RivAR.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>2DDC90A8-FE3D-4E31-8D20-9A2CD8FE7692</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>2DDC90A8-FE3D-4E31-8D20-9A2CD8FE7692</string>
+			<key>IDESourceControlWCCName</key>
+			<string>DL</string>
+		</dict>
+	</array>
+</dict>
+</plist>

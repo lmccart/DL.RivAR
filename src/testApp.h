@@ -5,6 +5,8 @@
 #include "ofxARToolkitPlus.h"
 #include "ofx3DModelLoader.h"
 //#include "ofxQTVideoSaver.h"
+#include "ofxOculusRift.h"
+
 #include "timer.h"
 
 
@@ -21,6 +23,7 @@ public:
 	void setup();
 	void update();
 	void draw();
+	void drawScene();
 	
 	void keyPressed  (int key);
 	void keyReleased(int key);
@@ -33,6 +36,7 @@ public:
 	
 	void setUpModel();  //sets up and loads the 3d model;
 	void drawModel();
+	void drawTestGraphics();
 	
 	void drawRegular();
 	void drawData();
@@ -117,5 +121,11 @@ public:
 	int currentModel;
 	
 	bool toggleBlackBGround;
+	
+	// oculus rift
+	ofxOculusRift		oculusRift;
+	float				lastUpdateTime;
+	bool				drawOculus;
+	
 };
 

@@ -125,6 +125,11 @@ void testApp::setup(){
 	modelScale = 1.0;
 	//frameBuffer.allocate(ofGetScreenWidth(), ofGetScreenHeight(), GL_RGB, 0);
 	
+	// oculus stuff
+	drawOculus = false;
+	oculusRift.init( 1280, 800, 4 );
+	oculusRift.setPosition( 0,-30,0 );
+	
 	
 }
 //--------------------------------------------------------------
@@ -227,11 +232,43 @@ void testApp::update(){
 		// update the timestamp to the current time
 		mTimestamp = ofGetElapsedTimef();
 	}
+	
+//	if( ofGetKeyPressed('i') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() + 0.001f ); }
+//	else if( ofGetKeyPressed('o') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() - 0.001f ); }
+//	else if( ofGetKeyPressed('k') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() + 1.0f ); }
+//	else if( ofGetKeyPressed('l') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() - 1.0f ); }
+	
 }
 
 //--------------------------------------------------------------
 void testApp::draw(){
 	
+	if (drawOculus) {
+		
+		oculusRift.beginRenderSceneLeftEye();
+		drawScene();
+		//drawTestGraphics();
+		oculusRift.endRenderSceneLeftEye();
+		
+		oculusRift.beginRenderSceneRightEye();
+		drawScene();
+		//drawTestGraphics();
+		oculusRift.endRenderSceneRightEye();
+		
+		ofSetColor( 255 );
+		oculusRift.draw( ofVec2f(0,0), ofVec2f( ofGetWidth(), ofGetHeight() ) );
+		
+	} else {
+		drawScene();
+	}
+	
+
+	
+}
+
+
+//--------------------------------------------------------------
+void testApp::drawScene() {
 	
 	if (screenMode  == 0)
 	{
@@ -241,7 +278,41 @@ void testApp::draw(){
 		drawData();
 	}
 	
+}
+
+
+//--------------------------------------------------------------
+void testApp::drawTestGraphics() {
+
+	ofSetColor(120);
 	
+	ofPushMatrix();
+	ofRotate(90, 0, 0, -1);
+	ofDrawGridPlane(500.0f, 40.0f, false );
+	ofPopMatrix();
+	
+	ofSetColor( 255, 0, 0 );
+	
+	ofPushMatrix();
+	ofTranslate( ofPoint(10,0,-80) );
+	for( int i = 0; i < 20; i ++ )
+	{
+		ofBox( ofPoint(0,25,i * -100), 50);
+	}
+	ofPopMatrix();
+	
+	string tmpStr = "Do Warping: " + ofToString( oculusRift.getDoWarping() ) + "\n";
+	tmpStr += "Inter Ocular Distance: "  + ofToString( oculusRift.getInterOcularDistance() ) + "\n";
+	
+	ofSetColor( 255 );
+	
+	ofPushMatrix();
+	ofTranslate( ofPoint(-60,280,-200) );
+	ofRotateZ( 180 );
+	ofRotateY( 180 );
+	ofPopMatrix();
+	
+	ofSetColor(255);
 }
 
 
@@ -560,7 +631,6 @@ void testApp::drawModel(){
 	
 	glPopMatrix();
 	
-	
 }
 
 //--------------------------------------------------------------
@@ -590,6 +660,13 @@ void testApp::keyPressed(int key){
 	} else if(key == OF_KEY_DOWN) {
 		artk.setThreshold(--threshold);
 	}
+	
+	else if(key == 'O') { // toggle oculus view
+		drawOculus = !drawOculus;
+		printf("drawing to oculus set to %d\n", drawOculus);
+	}
+	
+	
 #ifdef CAMERA_CONNECTED
 	if(key == 'f') {
 		vidGrabber.videoSettings();
