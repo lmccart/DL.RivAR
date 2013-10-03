@@ -146,9 +146,16 @@ void testApp::drawTestGraphics() {
 void testApp::keyPressed(int key){
 	
 	
+	printf("key %d\n", key);
 	if(key == 'O') { // toggle oculus view
 		drawOculus = !drawOculus;
 		printf("drawing to oculus set to %d\n", drawOculus);
+	}
+	
+	else if (key > 48 && key <= 57) { // go to mode
+		if (key - 49 < modes.size()) {
+			curMode = key - 49;
+		}
 	}
 	
 	else if (key == 'e') {

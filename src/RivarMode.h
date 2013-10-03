@@ -22,7 +22,6 @@ public:
 	RivarMode(int width, int height);
 	~RivarMode();
 	
-	
 	virtual void draw()=0;
 	virtual void update()=0;
 	virtual void handleKey(int key)=0;
