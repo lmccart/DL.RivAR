@@ -1,5 +1,5 @@
 /*
- *  timer.h
+ *  Timer.h
  *  AR-Kiosk
  *
  *  Created by Dennis Rosenfeld on 11-06-10.

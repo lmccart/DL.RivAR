@@ -1,7 +1,7 @@
-#include "arMode.h"
+#include "ArMode.h"
 
 
-arMode::arMode(int width, int height) : rivarMode(width, height) {
+ArMode::ArMode(int width, int height) : RivarMode(width, height) {
 	
 	// pend: why do I need to do this?
 	this->width = width;
@@ -118,13 +118,13 @@ arMode::arMode(int width, int height) : rivarMode(width, height) {
 }
 
 
-arMode::~arMode() {
+ArMode::~ArMode() {
 	
 }
 
 
 //--------------------------------------------------------------
-void arMode::setUpModel()
+void ArMode::setUpModel()
 {
 	
 	//riverModel.loadModel("river/River3D.3DS", MODL_SIZE);
@@ -148,7 +148,7 @@ void arMode::setUpModel()
 
 
 //--------------------------------------------------------------
-void arMode::draw() {
+void ArMode::draw() {
 	
 	if (screenMode  == 0)
 	{
@@ -162,7 +162,7 @@ void arMode::draw() {
 
 
 //--------------------------------------------------------------
-void arMode::drawRegular(){
+void ArMode::drawRegular(){
 	// Main image
 	
 	ofSetColor(0, 0, 0);
@@ -281,12 +281,7 @@ void arMode::drawRegular(){
 		for(int i=0;i<corners.size();i++) {
 			//ofCircle(corners[i].x, corners[i].y, 10);
 		}
-		
-		
-		
 	}
-	
-	
 	
 	
 	artk.applyProjectionMatrix(ofGetScreenWidth(), ofGetScreenHeight() );
@@ -418,7 +413,7 @@ void arMode::drawRegular(){
 }
 
 //--------------------------------------------------------------
-void arMode::drawModel(){
+void ArMode::drawModel(){
 	
 	glPushMatrix();
 	
@@ -457,7 +452,7 @@ void arMode::drawModel(){
 
 
 //--------------------------------------------------------------
-void arMode::drawData(){
+void ArMode::drawData(){
 	
 	// Threshold image
 	ofSetHexColor(0xffffff);
@@ -476,7 +471,7 @@ void arMode::drawData(){
 
 
 //--------------------------------------------------------------
-void arMode::positionLights() {
+void ArMode::positionLights() {
 	
 	ofVec3f pos =   artk.getCameraPosition(0);
 	glEnable(GL_DEPTH_TEST);
@@ -511,7 +506,7 @@ void arMode::positionLights() {
 }
 
 //--------------------------------------------------------------
-void arMode::update() {
+void ArMode::update() {
 #ifdef CAMERA_CONNECTED
 	vidGrabber.update();
 	bool bNewFrame = vidGrabber.isFrameNew();
@@ -540,5 +535,66 @@ void arMode::update() {
 	}
 	
 	fadeOutTimer.update();
+	
+}
+
+//--------------------------------------------------------------
+void ArMode::handleKey(int key) {
+	
+	if(key == OF_KEY_UP) {
+		artk.setThreshold(++threshold);
+		
+	} else if(key == OF_KEY_DOWN) {
+		artk.setThreshold(--threshold);
+	}
+	
+#ifdef CAMERA_CONNECTED
+	if(key == 'f') {
+		vidGrabber.videoSettings();
+	}
+#endif
+	
+	if(key == 'g') {
+		screenMode = !screenMode;
+	}
+	
+	else if (key == 'a') {
+		nineOneOneCall.play();
+		nineOneOneCall.setLoop(false);
+	}
+	
+	else if (key == 'b') {
+		nineOneOneCall.stop();
+	}
+	
+	
+	
+	if (key == OF_KEY_BACKSPACE) {
+		modelScale += 0.1;
+		riverModel.setScale(modelScale,modelScale,modelScale);
+	}
+	
+	else if (key == OF_KEY_RETURN) {
+		modelScale -= 0.1;
+		riverModel.setScale(modelScale, modelScale, modelScale);
+		
+	}
+	
+	
+	else if (key == OF_KEY_DEL) {
+		currentModel++;
+		if (currentModel >= models.size() ) currentModel = 0;
+		
+		riverModel.loadModel(models[currentModel], MODL_SIZE);
+		shadow.loadImage(shadowFiles[currentModel] );
+		
+		nineOneOneCall.stop();
+		nineOneOneCall.loadSound(audioFiles[currentModel] );
+	}
+	
+	
+	else if (key == 'q') {
+		toggleBlackBGround = !toggleBlackBGround;
+	}
 	
 }

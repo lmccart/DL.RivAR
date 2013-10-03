@@ -1,3 +1,11 @@
+/*
+ *  testApp.h
+ *  RivAR
+ *
+ *  Created by Lauren McCarthy on 09-25-13.
+ *
+ */
+
 #pragma once
 
 #include "ofMain.h"
@@ -6,9 +14,9 @@
 //#include "ofxQTVideoSaver.h"
 #include "ofxOculusRift.h"
 
-#include "timer.h"
-#include "rivarMode.h"
-#include "arMode.h"
+#include "Timer.h"
+#include "RivarMode.h"
+#include "ArMode.h"
 
 class testApp : public ofBaseApp{
 	
@@ -18,7 +26,7 @@ public:
 	void draw();
 	void drawScene();
 	
-	void keyPressed  (int key);
+	void keyPressed(int key);
 	void keyReleased(int key);
 	void mouseMoved(int x, int y );
 	void mouseDragged(int x, int y, int button);
@@ -49,7 +57,7 @@ public:
 	float mTimestamp;
 	
 	// modes
-	vector<rivarMode *> modes;
+	vector<RivarMode *> modes;
 	int curMode;
 	
 };

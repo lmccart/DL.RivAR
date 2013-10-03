@@ -27,7 +27,7 @@ void testApp::setup(){
 	screenCap.allocate(ofGetScreenWidth(), ofGetScreenHeight(), OF_IMAGE_COLOR);
 
 	// build modes
-	modes.push_back(new arMode(width, height));
+	modes.push_back(new ArMode(width, height));
 	curMode = 0;
 }
 
@@ -144,58 +144,21 @@ void testApp::drawTestGraphics() {
 //--------------------------------------------------------------
 void testApp::keyPressed(int key){
 	
-	/*
-
-	if(key == OF_KEY_UP) {
-		artk.setThreshold(++threshold);
-		
-	} else if(key == OF_KEY_DOWN) {
-		artk.setThreshold(--threshold);
-	}
 	
-	else if(key == 'O') { // toggle oculus view
+	if(key == 'O') { // toggle oculus view
 		drawOculus = !drawOculus;
 		printf("drawing to oculus set to %d\n", drawOculus);
 	}
 	
-#ifdef CAMERA_CONNECTED
-	if(key == 'f') {
-		vidGrabber.videoSettings();
-	}
-#endif
-	
-	if(key == 'g')
-	{
-		
-		if (screenMode == 0)
-		{
-			screenMode = 1;
-		}
-		else {
-			screenMode = 0;
-		}
-	}
-	
-	if (key == 'e') {
+	else if (key == 'e') {
 		screenCap.grabScreen(0, 0, ofGetScreenWidth(), ofGetScreenHeight() );
 		
 		string s = "screencap" + ofToString( ofGetTimestampString() ) + ".jpg";
 		screenCap.saveImage(s, OF_IMAGE_QUALITY_BEST);
 	}
 	
-	if (key == 'a') {
-		nineOneOneCall.play();
-		nineOneOneCall.setLoop(false);
-	}
-	
-	if (key == 'b') {
-		nineOneOneCall.stop();
-	}
-	
-	if (key == 'd')
-	{
-		if (nowSaving == false && ofGetElapsedTimeMillis() > 2000)
-		{
+	else if (key == 'd') {
+		if (nowSaving == false && ofGetElapsedTimeMillis() > 2000) {
 			saveMovie();
 		}
 		else {
@@ -204,39 +167,11 @@ void testApp::keyPressed(int key){
 		}
 	}
 	
-	if (key == OF_KEY_BACKSPACE)
-	{
-		modelScale += 0.1;
-		riverModel.setScale(modelScale,modelScale,modelScale);
-	}
-	if (key == OF_KEY_RETURN)
-	{
-		modelScale -= 0.1;
-		riverModel.setScale(modelScale, modelScale, modelScale);
-		
+	// pass on to mode handling
+	else {
+		modes[curMode]->handleKey(key);
 	}
 	
-	
-	if (key == OF_KEY_DEL)
-	{
-		currentModel++;
-		if (currentModel >= models.size() ) currentModel = 0;
-		
-		riverModel.loadModel(models[currentModel], MODL_SIZE);
-		shadow.loadImage(shadowFiles[currentModel] );
-		
-		nineOneOneCall.stop();
-		nineOneOneCall.loadSound(audioFiles[currentModel] );
-	}
-	
-	
-	if (key == 'q')
-	{
-		toggleBlackBGround = !toggleBlackBGround;
-	}
-	//riverModel.loadModel("river/River3D.3DS", 30);
- 
- */
 }
 
 //--------------------------------------------------------------

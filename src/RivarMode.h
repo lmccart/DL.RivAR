@@ -1,3 +1,11 @@
+/*
+ *  RivarMode.h
+ *  RivAR
+ *
+ *  Created by Lauren McCarthy on 09-25-13.
+ *
+ */
+
 #pragma once
 
 #include "ofMain.h"
@@ -5,19 +13,20 @@
 //#include "ofxQTVideoSaver.h"
 #include "ofxOculusRift.h"
 
-#include "timer.h"
+#include "Timer.h"
 
 
-class rivarMode {
+class RivarMode {
 	
 public:
-	rivarMode(int width, int height);
-	~rivarMode();
+	RivarMode(int width, int height);
+	~RivarMode();
 	
 	
 	virtual void draw()=0;
 	virtual void update()=0;
-
+	virtual void handleKey(int key)=0;
+	
 	int width;
 	int	height;
 };

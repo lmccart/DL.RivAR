@@ -1,3 +1,12 @@
+/*
+ *  ArMode.h
+ *  RivAR
+ *
+ *  Created by Lauren McCarthy on 09-25-13.
+ *
+ */
+
+
 #pragma once
 
 #include "ofMain.h"
@@ -7,8 +16,8 @@
 //#include "ofxQTVideoSaver.h"
 #include "ofxOculusRift.h"
 
-#include "timer.h"
-#include "rivarMode.h"
+#include "Timer.h"
+#include "RivarMode.h"
 
 
 
@@ -19,11 +28,11 @@
 #define MODL_SIZE 60
 
 
-class arMode : public rivarMode {
+class ArMode : public RivarMode {
 	
 public:
-	arMode(int width, int height);
-	~arMode();
+	ArMode(int width, int height);
+	~ArMode();
 	
 	void setUpModel();  //sets up and loads the 3d model;
 	void draw();
@@ -32,6 +41,7 @@ public:
 	void drawModel();
 	void update();
 	void positionLights();
+	void handleKey(int key);
 	
 	/* Use either camera or a video file */
 #ifdef CAMERA_CONNECTED

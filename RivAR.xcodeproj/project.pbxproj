@@ -48,9 +48,10 @@
 		651B84F117F63185004138D3 /* Util_MagCalibration.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651B84B517F63185004138D3 /* Util_MagCalibration.cpp */; };
 		651B84F217F63185004138D3 /* Util_Render_Stereo.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651B84B717F63185004138D3 /* Util_Render_Stereo.cpp */; };
 		651B84F317F63185004138D3 /* ofxOculusRift.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 651B84BC17F63185004138D3 /* ofxOculusRift.cpp */; };
-		65A1C98E17FC644B00752E25 /* rivarMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65A1C98C17FC644B00752E25 /* rivarMode.cpp */; };
-		65A1C99117FC662E00752E25 /* arMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65A1C98F17FC662E00752E25 /* arMode.cpp */; };
-		65B6CDD917EDD54800AEE7FB /* timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65B6CDD717EDD54800AEE7FB /* timer.cpp */; };
+		656F90E117FCED8000314896 /* MovieMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 656F90DF17FCED8000314896 /* MovieMode.cpp */; };
+		65A1C98E17FC644B00752E25 /* RivarMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65A1C98C17FC644B00752E25 /* RivarMode.cpp */; };
+		65A1C99117FC662E00752E25 /* ArMode.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65A1C98F17FC662E00752E25 /* ArMode.cpp */; };
+		65B6CDD917EDD54800AEE7FB /* Timer.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65B6CDD717EDD54800AEE7FB /* Timer.cpp */; };
 		65B6CE6417EE005000AEE7FB /* ARTK_Plus.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 65B6CE2017EE005000AEE7FB /* ARTK_Plus.a */; };
 		65B6CE8F17EE005000AEE7FB /* ofxARToolkitPlus.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 65B6CE5E17EE005000AEE7FB /* ofxARToolkitPlus.cpp */; };
 		BBAB23CB13894F3D00AA2426 /* GLUT.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = BBAB23BE13894E4700AA2426 /* GLUT.framework */; };
@@ -227,12 +228,14 @@
 		651B84BA17F63185004138D3 /* README.md */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = README.md; sourceTree = "<group>"; };
 		651B84BC17F63185004138D3 /* ofxOculusRift.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ofxOculusRift.cpp; sourceTree = "<group>"; };
 		651B84BD17F63185004138D3 /* ofxOculusRift.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ofxOculusRift.h; sourceTree = "<group>"; };
-		65A1C98C17FC644B00752E25 /* rivarMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = rivarMode.cpp; sourceTree = "<group>"; };
-		65A1C98D17FC644B00752E25 /* rivarMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = rivarMode.h; sourceTree = "<group>"; };
-		65A1C98F17FC662E00752E25 /* arMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = arMode.cpp; sourceTree = "<group>"; };
-		65A1C99017FC662E00752E25 /* arMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arMode.h; sourceTree = "<group>"; };
-		65B6CDD717EDD54800AEE7FB /* timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = timer.cpp; sourceTree = "<group>"; };
-		65B6CDD817EDD54800AEE7FB /* timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = timer.h; sourceTree = "<group>"; };
+		656F90DF17FCED8000314896 /* MovieMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = MovieMode.cpp; sourceTree = "<group>"; };
+		656F90E017FCED8000314896 /* MovieMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = MovieMode.h; sourceTree = "<group>"; };
+		65A1C98C17FC644B00752E25 /* RivarMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = RivarMode.cpp; sourceTree = "<group>"; };
+		65A1C98D17FC644B00752E25 /* RivarMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = RivarMode.h; sourceTree = "<group>"; };
+		65A1C98F17FC662E00752E25 /* ArMode.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = ArMode.cpp; sourceTree = "<group>"; };
+		65A1C99017FC662E00752E25 /* ArMode.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ArMode.h; sourceTree = "<group>"; };
+		65B6CDD717EDD54800AEE7FB /* Timer.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; path = Timer.cpp; sourceTree = "<group>"; };
+		65B6CDD817EDD54800AEE7FB /* Timer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Timer.h; sourceTree = "<group>"; };
 		65B6CE0317EE005000AEE7FB /* ar.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ar.h; sourceTree = "<group>"; };
 		65B6CE0417EE005000AEE7FB /* arBitFieldPattern.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arBitFieldPattern.h; sourceTree = "<group>"; };
 		65B6CE0517EE005000AEE7FB /* arMulti.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = arMulti.h; sourceTree = "<group>"; };
@@ -1021,15 +1024,17 @@
 		E4B69E1C0A3A1BDC003C02F2 /* src */ = {
 			isa = PBXGroup;
 			children = (
-				65B6CDD717EDD54800AEE7FB /* timer.cpp */,
-				65B6CDD817EDD54800AEE7FB /* timer.h */,
+				65B6CDD717EDD54800AEE7FB /* Timer.cpp */,
+				65B6CDD817EDD54800AEE7FB /* Timer.h */,
 				E4B69E1D0A3A1BDC003C02F2 /* main.cpp */,
 				E4B69E1E0A3A1BDC003C02F2 /* testApp.cpp */,
 				E4B69E1F0A3A1BDC003C02F2 /* testApp.h */,
-				65A1C98C17FC644B00752E25 /* rivarMode.cpp */,
-				65A1C98D17FC644B00752E25 /* rivarMode.h */,
-				65A1C98F17FC662E00752E25 /* arMode.cpp */,
-				65A1C99017FC662E00752E25 /* arMode.h */,
+				65A1C98C17FC644B00752E25 /* RivarMode.cpp */,
+				65A1C98D17FC644B00752E25 /* RivarMode.h */,
+				656F90DF17FCED8000314896 /* MovieMode.cpp */,
+				656F90E017FCED8000314896 /* MovieMode.h */,
+				65A1C98F17FC662E00752E25 /* ArMode.cpp */,
+				65A1C99017FC662E00752E25 /* ArMode.h */,
 			);
 			path = src;
 			sourceTree = SOURCE_ROOT;
@@ -1202,15 +1207,16 @@
 				651B84F217F63185004138D3 /* Util_Render_Stereo.cpp in Sources */,
 				651B84D317F63185004138D3 /* OVR_Log.cpp in Sources */,
 				651B84D017F63185004138D3 /* OVR_Atomic.cpp in Sources */,
-				65B6CDD917EDD54800AEE7FB /* timer.cpp in Sources */,
+				65B6CDD917EDD54800AEE7FB /* Timer.cpp in Sources */,
 				65B6CE8F17EE005000AEE7FB /* ofxARToolkitPlus.cpp in Sources */,
 				651B84D717F63185004138D3 /* OVR_String.cpp in Sources */,
 				651B84D517F63185004138D3 /* OVR_RefCount.cpp in Sources */,
 				651B84D417F63185004138D3 /* OVR_Math.cpp in Sources */,
 				651B84DF17F63185004138D3 /* OVR_UTF8Util.cpp in Sources */,
 				651B84CF17F63185004138D3 /* OVR_Allocator.cpp in Sources */,
-				65A1C98E17FC644B00752E25 /* rivarMode.cpp in Sources */,
-				65A1C99117FC662E00752E25 /* arMode.cpp in Sources */,
+				65A1C98E17FC644B00752E25 /* RivarMode.cpp in Sources */,
+				65A1C99117FC662E00752E25 /* ArMode.cpp in Sources */,
+				656F90E117FCED8000314896 /* MovieMode.cpp in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

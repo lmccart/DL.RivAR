@@ -1,3 +1,11 @@
+/*
+ *  main.cpp
+ *  RivAR
+ *
+ *  Created by Lauren McCarthy on 09-25-13.
+ *
+ */
+
 #include "ofMain.h"
 #include "testApp.h"
 

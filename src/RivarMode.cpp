@@ -1,7 +1,7 @@
-#include "rivarMode.h"
+#include "RivarMode.h"
 
 
-rivarMode::rivarMode(int width, int height) {
+RivarMode::RivarMode(int width, int height) {
 //	width = width;
 //	height = height;
 //	printf("RIVARD MODE WIDTH %d HEIGHT %d\n", this->width, this->height);
@@ -9,6 +9,6 @@ rivarMode::rivarMode(int width, int height) {
 }
 
 
-rivarMode::~rivarMode() {
+RivarMode::~RivarMode() {
 	
 }
