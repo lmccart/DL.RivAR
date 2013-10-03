@@ -28,6 +28,7 @@ void testApp::setup(){
 
 	// build modes
 	modes.push_back(new ArMode(width, height));
+	modes.push_back(new MovieMode(width, height));
 	curMode = 0;
 }
 

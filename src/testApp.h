@@ -17,6 +17,7 @@
 #include "Timer.h"
 #include "RivarMode.h"
 #include "ArMode.h"
+#include "MovieMode.h"
 
 class testApp : public ofBaseApp{
 	
