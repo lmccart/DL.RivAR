@@ -3,9 +3,6 @@
 
 ArMode::ArMode(int width, int height) : RivarMode(width, height) {
 	
-	// pend: why do I need to do this?
-	this->width = width;
-	this->height = height;
 	
 	// Print the markers from the "AllBchThinMarkers.png" file in the data folder
 #ifdef CAMERA_CONNECTED
@@ -557,31 +554,28 @@ void ArMode::handleKey(int key) {
 	if(key == 'g') {
 		screenMode = !screenMode;
 	}
-	
 	else if (key == 'a') {
-		nineOneOneCall.play();
+		nineOneOneCall.play	();
 		nineOneOneCall.setLoop(false);
 	}
 	
 	else if (key == 'b') {
 		nineOneOneCall.stop();
 	}
+	else if (key == 'q') {
+		toggleBlackBGround = !toggleBlackBGround;
+	}
 	
-	
-	
-	if (key == OF_KEY_BACKSPACE) {
+	else if (key == '+') {
 		modelScale += 0.1;
 		riverModel.setScale(modelScale,modelScale,modelScale);
 	}
-	
-	else if (key == OF_KEY_RETURN) {
+	else if (key == '-') {
 		modelScale -= 0.1;
 		riverModel.setScale(modelScale, modelScale, modelScale);
-		
 	}
 	
-	
-	else if (key == OF_KEY_DEL) {
+	else if (key == ' ') {
 		currentModel++;
 		if (currentModel >= models.size() ) currentModel = 0;
 		
@@ -593,8 +587,5 @@ void ArMode::handleKey(int key) {
 	}
 	
 	
-	else if (key == 'q') {
-		toggleBlackBGround = !toggleBlackBGround;
-	}
 	
 }

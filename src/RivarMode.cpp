@@ -2,13 +2,19 @@
 
 
 RivarMode::RivarMode(int width, int height) {
-//	width = width;
-//	height = height;
-//	printf("RIVARD MODE WIDTH %d HEIGHT %d\n", this->width, this->height);
-	
+	this->width = width;
+	this->height = height;
 }
 
 
 RivarMode::~RivarMode() {
+	
+}
+
+void RivarMode::enter() {
+	
+}
+
+void RivarMode::exit() {
 	
 }

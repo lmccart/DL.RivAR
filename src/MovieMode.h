@@ -25,10 +25,18 @@ public:
 	MovieMode(int width, int height);
 	~MovieMode();
 	
+	void enter();
+	void exit();
 	void draw();
 	void update();
 	void handleKey(int key);
 		
+	ofVideoPlayer player;
+	ofDirectory dir;
+	ofDirectory subDir;
+	vector<string> videos;
+	
+	int curVideo;
 
 };
 

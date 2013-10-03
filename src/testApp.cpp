@@ -29,7 +29,10 @@ void testApp::setup(){
 	// build modes
 	modes.push_back(new ArMode(width, height));
 	modes.push_back(new MovieMode(width, height));
+	
+	// start current mode
 	curMode = 0;
+	modes[curMode]->enter();
 }
 
 
@@ -154,7 +157,9 @@ void testApp::keyPressed(int key){
 	
 	else if (key > 48 && key <= 57) { // go to mode
 		if (key - 49 < modes.size()) {
+			modes[curMode]->exit();
 			curMode = key - 49;
+			modes[curMode]->enter();
 		}
 	}
 	
