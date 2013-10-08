@@ -8,6 +8,7 @@ ArMode::ArMode(int width, int height) : RivarMode(width, height) {
 	// Print the markers from the "AllBchThinMarkers.png" file in the data folder
 #ifdef CAMERA_CONNECTED
 	//vidGrabber.setDeviceID(0); // this uses external camera
+	//vidGrabber.setDeviceID(1); // this uses macbook camera
 	vidGrabber.initGrabber(width, height);
 #else
 	vidPlayer.loadMovie("marker.mov");
@@ -296,7 +297,7 @@ void ArMode::drawRegular(){
 		
 		haveMarker = true;
 		
-		if (haveMarkerLast == false)
+		if (haveMarkerLast == false)	
 		{
 			fadeOutTimer.start();
 		}
