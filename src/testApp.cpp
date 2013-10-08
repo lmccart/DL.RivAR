@@ -40,10 +40,10 @@ void testApp::setup(){
 		
 		
 		string name = "shaders/" +  dir.getName(i).substr(0, dir.getName(i).length()-5);
-		shaderNames.push_back(name);
-		
-		cout << "adding shader: " << name << endl;
-		
+		if (name != "shaders/HmdWarp") { // ignore oculus shader
+			shaderNames.push_back(name);
+			cout << "adding shader: " << name << endl;
+		}
 	}
 	
 	curShader = -1;
@@ -193,9 +193,9 @@ void testApp::draw(){
 //--------------------------------------------------------------
 void testApp::drawScene(bool flat) {
 	
-//	if (useShader) {
-//		shader.begin();
-//		
+	if (useShader) {
+		
+		
 //		//we want to pass in some varrying values to animate our type / color
 //		shader.setUniform1f("timeValX", ofGetElapsedTimef() * 0.1 );
 //		shader.setUniform1f("timeValY", -ofGetElapsedTimef() * 0.18 );
@@ -203,7 +203,7 @@ void testApp::drawScene(bool flat) {
 //		//we also pass in the mouse position
 //		//we have to transform the coords to what the shader is expecting which is 0,0 in the center and y axis flipped.
 //		shader.setUniform2f("mouse", mouseX - ofGetWidth()/2, ofGetHeight()/2-mouseY );
-//	}
+	}
 
 	
 	// draw mode to fbo
@@ -232,17 +232,21 @@ void testApp::drawScene(bool flat) {
 	if (flat) modes[curMode]->fbo.draw(0, 0);
 	else {
 		modes[curMode]->fbo.getTextureReference().bind();
+		if (useShader) {
+			shader.begin();
+			shader.setUniform1f("mouseX", mouseX);
+		}
 		sphere.draw();
+		if (useShader) {
+			shader.end();
+		}
 		modes[curMode]->fbo.getTextureReference().unbind();
 	}
 	
 	ofPopMatrix();
 
 
-	//
-	//	if (useShader) {
-	//		shader.end();
-	//	}
+	
 }
 
 
