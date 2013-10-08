@@ -73,6 +73,8 @@ public:
 	ofImage image[3];
 	int curImage[3]; // L, R, F
 	bool showImage[3]; // L, R, F
+	ofVec2f imagePositions[3]; // L, R, F
+	ofVec2f imageDimensions[3]; // L, R, F
 	
 	ofSpherePrimitive sphere;
 };

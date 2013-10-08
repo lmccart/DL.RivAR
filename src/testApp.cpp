@@ -3,9 +3,8 @@
 
 //--------------------------------------------------------------
 void testApp::setup(){
-	width =  1280;//720;
-	height = 720;//480;
-	
+	width =  1280;
+	height = 800;
 	
 	
 	//ofSetLogLevel(OF_LOG_VERBOSE);
@@ -19,14 +18,13 @@ void testApp::setup(){
 	
 	// oculus stuff
 	drawOculus = false;
-	//oculusRift.init( 1280, 800, 4 );
 	oculusRift.init( width, height, 4 );
 	oculusRift.setPosition( 0,-30,0 );
 	
 	// save and screencap stuff
 	doScreenCap = true;
 	nowSaving = false;
-	screenCap.allocate(ofGetScreenWidth(), ofGetScreenHeight(), OF_IMAGE_COLOR);
+	screenCap.allocate(width, height, OF_IMAGE_COLOR);
 
 	// build modes
 	modes.push_back(new ArMode(width, height));
@@ -88,6 +86,16 @@ void testApp::setup(){
 		}
 		showImage[i] = false;
 	}
+	
+	// image positions
+	imagePositions[0] = ofVec2f(200, 300);
+	imagePositions[1] = ofVec2f(880, 300);
+	imagePositions[2] = ofVec2f(0, 0);
+	
+	// image dimensions
+	imageDimensions[0] = ofVec2f(200, 200);
+	imageDimensions[1] = ofVec2f(200, 200);
+	imageDimensions[2] = ofVec2f(width, height);
 	
 	// start current mode
 	curMode = 0;
@@ -198,7 +206,7 @@ void testApp::drawScene(bool flat) {
 	for (int i=0; i<3; i++) {
 		if (showImage[i]) {
 			modes[curMode]->fbo.begin();
-			image[i].draw(0, 0, width, height);
+			image[i].draw(imagePositions[i].x, imagePositions[i].y, imageDimensions[i].x, imageDimensions[i].y);
 			modes[curMode]->fbo.end();
 		}
 	}
@@ -269,14 +277,16 @@ void testApp::keyPressed(int key){
 	
 	
 	printf("key %d\n", key);
-	if(key == 'O') { // toggle oculus view
+	
+	// toggle oculus view
+	if(key == 'O') {
 		drawOculus = !drawOculus;
 		ofSetFullscreen(drawOculus);
 		printf("drawing to oculus set to %d\n", drawOculus);
 	}
 	
-	
-	else if (key > 48 && key <= 57) { // go to mode
+	// go to mode
+	else if (key > 48 && key <= 57) {
 		if (key - 49 < modes.size()) {
 			modes[curMode]->exit();
 			curMode = key - 49;
@@ -284,6 +294,7 @@ void testApp::keyPressed(int key){
 		}
 	}
 	
+	// toggle shaders
 	else if (key == 's') {
 		useShader = !useShader;
 		printf("useShader set to %d\n", useShader);
@@ -295,7 +306,7 @@ void testApp::keyPressed(int key){
 	}
 	
 	
-	
+	// show and toggle images
 	else if (key == 'l') {
 		showImage[0] = !showImage[0];
 		printf("showImage Left set to %d\n", showImage[0]);
@@ -305,26 +316,26 @@ void testApp::keyPressed(int key){
 		image[0].loadImage(imageNames[0][curImage[0]]);
 		printf("curImage Left set to %s\n", (char*)imageNames[0][curImage[0]].c_str());
 	}
-	/*
 	else if (key == 'r') {
-		showImage[0] = !showImage[0];
-		printf("showImage Right set to %d\n", showImage[0]);
+		showImage[1] = !showImage[1];
+		printf("showImage Right set to %d\n", showImage[1]);
 	}
 	else if (key == 'R') {
-		curImage[0] = (curImage[0]+1)%images[0].size();
+		curImage[1] = (curImage[1]+1)%imageNames[1].size();
+		image[1].loadImage(imageNames[1][curImage[1]]);
+		printf("curImage Right set to %s\n", (char*)imageNames[1][curImage[1]].c_str());
 	}
-	
 	else if (key == 'f') {
-		showImage[0] = !showImage[0];
-		printf("showImage Full set to %d\n", showImage[0]);
+		showImage[2] = !showImage[2];
+		printf("showImage Full set to %d\n", showImage[2]);
 	}
 	else if (key == 'F') {
-		curImage[0] = (curImage[0]+1)%images[0].size();
+		curImage[2] = (curImage[2]+1)%imageNames[2].size();
+		image[2].loadImage(imageNames[2][curImage[2]]);
+		printf("curImage Full set to %s\n", (char*)imageNames[2][curImage[2]].c_str());
 	}
 	
-	*/
-	
-		
+	// screen grab and saving
 	else if (key == 'e') {
 		screenCap.grabScreen(0, 0, ofGetScreenWidth(), ofGetScreenHeight() );
 		
