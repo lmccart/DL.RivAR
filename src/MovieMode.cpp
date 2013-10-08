@@ -3,15 +3,12 @@
 
 MovieMode::MovieMode(int width, int height) : RivarMode(width, height) {
 	
-	
-	
-	//------------------------------------------LOAD NAMES OF ALL MODELS--
+	//------------------------------------------LOAD NAMES OF ALL VIDEOS--
+	dir.allowExt("mov");
 	dir.listDir("videos/");
 	dir.sort(); // in linux the file system doesn't return file lists ordered in alphabetical order
 	
 	for(int i = 0; i < (int)dir.size(); i++){
-		
-		subDir.allowExt("mov");
 		
 		string name = "videos/" +  dir.getName(i);
 		videos.push_back(name);
@@ -42,7 +39,9 @@ void MovieMode::enter() {
 
 //--------------------------------------------------------------
 void MovieMode::draw() {
+	fbo.begin();
 	player.draw(0, 0, width, height);
+	fbo.end();
 }
 
 //--------------------------------------------------------------

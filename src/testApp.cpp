@@ -1,11 +1,11 @@
 #include "testApp.h"
 
 
-
 //--------------------------------------------------------------
 void testApp::setup(){
 	width =  1280;//720;
 	height = 720;//480;
+	
 	
 	//ofSetLogLevel(OF_LOG_VERBOSE);
 	
@@ -18,7 +18,8 @@ void testApp::setup(){
 	
 	// oculus stuff
 	drawOculus = false;
-	oculusRift.init( 1280, 800, 4 );
+	//oculusRift.init( 1280, 800, 4 );
+	oculusRift.init( width, height, 4 );
 	oculusRift.setPosition( 0,-30,0 );
 	
 	// save and screencap stuff
@@ -30,9 +31,72 @@ void testApp::setup(){
 	modes.push_back(new ArMode(width, height));
 	modes.push_back(new MovieMode(width, height));
 	
+	// load shaders
+	
+	//------------------------------------------LOAD NAMES OF ALL SHADERS--
+	dir.allowExt("vert");
+	dir.listDir("shaders/");
+	dir.sort(); // in linux the file system doesn't return file lists ordered in alphabetical order
+	for(int i = 0; i < (int)dir.size(); i++){
+		
+		
+		string name = "shaders/" +  dir.getName(i).substr(0, dir.getName(i).length()-5);
+		shaderNames.push_back(name);
+		
+		cout << "adding shader: " << name << endl;
+		
+	}
+	
+	curShader = -1;
+	if (shaderNames.size() > 0) {
+		curShader = 0;
+		shader.load(shaderNames[curShader]);
+	}
+	
+	// load images
+	
+	//------------------------------------------LOAD NAMES OF ALL SHADERS--
+	dir.reset();
+	dir.allowExt("png");
+	dir.allowExt("jpg");
+	dir.allowExt("gif");
+	dir.listDir("images/");
+	dir.sort(); // in linux the file system doesn't return file lists ordered in alphabetical order
+	
+	for(int i = 0; i < (int)dir.size(); i++){
+		
+		
+		string name = "images/" +  dir.getName(i).substr(0, dir.getName(i).length());
+		if (ofIsStringInString(name, "-L")) {
+			imageNames[0].push_back(name);
+		} else if (ofIsStringInString(name, "-R")) {
+			imageNames[1].push_back(name);
+		} else if (ofIsStringInString(name, "-F")) {
+			imageNames[2].push_back(name);
+		}
+		
+		cout << "adding image: " << name << endl;
+		
+	}
+	
+	for (int i=0; i<3; i++) {
+		curImage[i] = -1;
+		if (imageNames[i].size() > 0) {
+			curImage[i] = 0;
+			image[i].loadImage(imageNames[i][0]);
+		}
+		showImage[i] = false;
+	}
+	
 	// start current mode
 	curMode = 0;
 	modes[curMode]->enter();
+	
+	
+	//ofDisableArbTex();
+	sphere.set(1000, 30);
+	sphere.mapTexCoordsFromTexture(modes[curMode]->fbo.getTextureReference());
+	
 }
 
 
@@ -53,13 +117,22 @@ void testApp::update(){
 	// update current mode
 	modes[curMode]->update();
 	
-//	if( ofGetKeyPressed('i') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() + 0.001f ); }
-//	else if( ofGetKeyPressed('o') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() - 0.001f ); }
-//	else if( ofGetKeyPressed('k') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() + 1.0f ); }
-//	else if( ofGetKeyPressed('l') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() - 1.0f ); }
+	float currTime = ofGetElapsedTimef();
+	float frameDeltaTime = currTime - lastUpdateTime;
+	lastUpdateTime = currTime;
 	
-	if (doScreenCap == true && nowSaving == true)
-	{
+	if(		 ofGetKeyPressed('i') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() + 0.001f ); }
+	else if( ofGetKeyPressed('o') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() - 0.001f ); }
+	else if( ofGetKeyPressed('k') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() + 1.0f ); }
+	else if( ofGetKeyPressed('l') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() - 1.0f ); }
+//	
+//	if(	ofGetKeyPressed(OF_KEY_UP) )    { oculusRift.dolly(  30.0f * frameDeltaTime ); }
+//	if( ofGetKeyPressed(OF_KEY_DOWN) )  { oculusRift.dolly( -30.0f * frameDeltaTime ); }
+//	if( ofGetKeyPressed(OF_KEY_LEFT) )  { oculusRift.truck(  30.0f * frameDeltaTime ); }
+//	if( ofGetKeyPressed(OF_KEY_RIGHT) ) { oculusRift.truck( -30.0f * frameDeltaTime ); }
+//	
+	
+	if (doScreenCap == true && nowSaving == true) {
 		screenCap.grabScreen(0, 0, ofGetScreenWidth(), ofGetScreenHeight() );
 		//cout << "screenCap";
 		
@@ -70,23 +143,27 @@ void testApp::update(){
 //--------------------------------------------------------------
 void testApp::draw(){
 	
+
+	
 	if (drawOculus) {
 		
 		oculusRift.beginRenderSceneLeftEye();
-		drawScene();
+		drawScene(false);
 		//drawTestGraphics();
 		oculusRift.endRenderSceneLeftEye();
 		
 		oculusRift.beginRenderSceneRightEye();
-		drawScene();
-		//drawTestGraphics();
+		drawScene(false);
 		oculusRift.endRenderSceneRightEye();
 		
 		ofSetColor( 255 );
 		oculusRift.draw( ofVec2f(0,0), ofVec2f( ofGetWidth(), ofGetHeight() ) );
 		
 	} else {
-		drawScene();
+		ofPushMatrix();
+		ofScale(1.0, -1.0);
+		drawScene(true);
+		ofPopMatrix();
 	}
 	
 	
@@ -97,17 +174,57 @@ void testApp::draw(){
 		
 	}
 	
-
-	
 }
 
 
 //--------------------------------------------------------------
-void testApp::drawScene() {
+void testApp::drawScene(bool flat) {
 	
-	// update current mode
+//	if (useShader) {
+//		shader.begin();
+//		
+//		//we want to pass in some varrying values to animate our type / color
+//		shader.setUniform1f("timeValX", ofGetElapsedTimef() * 0.1 );
+//		shader.setUniform1f("timeValY", -ofGetElapsedTimef() * 0.18 );
+//		
+//		//we also pass in the mouse position
+//		//we have to transform the coords to what the shader is expecting which is 0,0 in the center and y axis flipped.
+//		shader.setUniform2f("mouse", mouseX - ofGetWidth()/2, ofGetHeight()/2-mouseY );
+//	}
+
+
+	ofPushMatrix();
+	
+	//ofTranslate(width/2, height/2);
+	ofScale(1.0, -1.0);
+	
 	modes[curMode]->draw();
+	
+	if (flat) {
+		modes[curMode]->fbo.draw(0, 0);
+	}
+	
+	else {
+		modes[curMode]->fbo.getTextureReference().bind();
+		sphere.draw();
+		modes[curMode]->fbo.getTextureReference().unbind();
+	}
+	
+	ofPopMatrix();
+
+	//	for (int i=0; i<3; i++) {
+	//		if (showImage[i]) {
+	//			image[i].draw(0, 0, width, height);
+	//		}
+	//	}
+
+	//
+	//	if (useShader) {
+	//		shader.end();
+	//	}
 }
+
+
 
 
 //--------------------------------------------------------------
@@ -126,7 +243,7 @@ void testApp::drawTestGraphics() {
 	ofTranslate( ofPoint(10,0,-80) );
 	for( int i = 0; i < 20; i ++ )
 	{
-		ofBox( ofPoint(0,25,i * -100), 50);
+		ofDrawBox( ofPoint(0,25,i * -100), 50);
 	}
 	ofPopMatrix();
 	
@@ -155,6 +272,7 @@ void testApp::keyPressed(int key){
 		printf("drawing to oculus set to %d\n", drawOculus);
 	}
 	
+	
 	else if (key > 48 && key <= 57) { // go to mode
 		if (key - 49 < modes.size()) {
 			modes[curMode]->exit();
@@ -163,6 +281,47 @@ void testApp::keyPressed(int key){
 		}
 	}
 	
+	else if (key == 's') {
+		useShader = !useShader;
+		printf("useShader set to %d\n", useShader);
+	}
+	else if (key == 'S') {
+		curShader = (curShader+1)%shaderNames.size();
+		shader.load(shaderNames[curShader]);
+		printf("curShader set to %d\n", curShader);
+	}
+	
+	
+	
+	else if (key == 'l') {
+		showImage[0] = !showImage[0];
+		printf("showImage Left set to %d\n", showImage[0]);
+	}
+	else if (key == 'L') {
+		curImage[0] = (curImage[0]+1)%imageNames[0].size();
+		image[0].loadImage(imageNames[0][curImage[0]]);
+		printf("curImage Left set to %s\n", (char*)imageNames[0][curImage[0]].c_str());
+	}
+	/*
+	else if (key == 'r') {
+		showImage[0] = !showImage[0];
+		printf("showImage Right set to %d\n", showImage[0]);
+	}
+	else if (key == 'R') {
+		curImage[0] = (curImage[0]+1)%images[0].size();
+	}
+	
+	else if (key == 'f') {
+		showImage[0] = !showImage[0];
+		printf("showImage Full set to %d\n", showImage[0]);
+	}
+	else if (key == 'F') {
+		curImage[0] = (curImage[0]+1)%images[0].size();
+	}
+	
+	*/
+	
+		
 	else if (key == 'e') {
 		screenCap.grabScreen(0, 0, ofGetScreenWidth(), ofGetScreenHeight() );
 		

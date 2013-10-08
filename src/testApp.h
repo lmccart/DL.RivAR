@@ -25,7 +25,7 @@ public:
 	void setup();
 	void update();
 	void draw();
-	void drawScene();
+	void drawScene(bool flat);
 	
 	void keyPressed(int key);
 	void keyReleased(int key);
@@ -61,5 +61,19 @@ public:
 	vector<RivarMode *> modes;
 	int curMode;
 	
+	// shaders
+	ofDirectory dir;
+	vector<string> shaderNames;
+	int curShader;
+	ofShader shader;
+	bool useShader;
+	
+	// images
+	vector<string> imageNames[3];
+	ofImage image[3];
+	int curImage[3]; // L, R, F
+	bool showImage[3]; // L, R, F
+	
+	ofSpherePrimitive sphere;
 };
 

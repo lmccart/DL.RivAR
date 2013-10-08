@@ -33,7 +33,6 @@ public:
 		
 	ofVideoPlayer player;
 	ofDirectory dir;
-	ofDirectory subDir;
 	vector<string> videos;
 	
 	int curVideo;

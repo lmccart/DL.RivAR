@@ -30,5 +30,7 @@ public:
 	
 	int width;
 	int	height;
+	
+	ofFbo fbo;
 };
 

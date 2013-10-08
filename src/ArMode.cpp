@@ -146,6 +146,7 @@ void ArMode::setUpModel()
 
 //--------------------------------------------------------------
 void ArMode::draw() {
+	fbo.begin();
 	
 	if (screenMode  == 0)
 	{
@@ -154,6 +155,8 @@ void ArMode::draw() {
 	else {
 		drawData();
 	}
+	
+	fbo.end();
 }
 
 
@@ -162,15 +165,14 @@ void ArMode::draw() {
 void ArMode::drawRegular(){
 	// Main image
 	
+	ofPushView();
+	
 	ofSetColor(0, 0, 0);
 	ofRect(0,0,ofGetScreenWidth(),ofGetScreenHeight() );
 	
-	if(toggleBlackBGround == false)
-	{
-		
+	if(toggleBlackBGround == false) {
 		ofSetColor(255, 255, 255);
 		colorImage.draw(0, 0,  ofGetScreenWidth(), ofGetScreenHeight() );
-		
 	}
 	
 	
@@ -261,7 +263,6 @@ void ArMode::drawRegular(){
 		
 	}
 	
-	
 	// ARTK 2D stuff
 	// See if marker ID '0' was detected
 	// and draw blue corners on that marker only
@@ -279,9 +280,8 @@ void ArMode::drawRegular(){
 			//ofCircle(corners[i].x, corners[i].y, 10);
 		}
 	}
-	
-	
 	artk.applyProjectionMatrix(ofGetScreenWidth(), ofGetScreenHeight() );
+	glMatrixMode(GL_MODELVIEW);
 	ofEnableAlphaBlending();
 	
 	if (numDetected > 0 && badData == false)
@@ -306,10 +306,7 @@ void ArMode::drawRegular(){
 		if (p > 1.0) p = 1.0;
 		if (p < 0.0) p = 0;
 		
-		
-		
-		
-		
+
 		//if (modelAlpha < int(255*p)) {
 		//	modelAlpha =  int(255*p);
 		
@@ -406,16 +403,13 @@ void ArMode::drawRegular(){
 		drawModel();
 		//-------------
 	}
-
+	ofPopView();
 }
 
 //--------------------------------------------------------------
 void ArMode::drawModel(){
 	
 	glPushMatrix();
-	
-	
-	
 	
 	ofEnableAlphaBlending();
 	ofSetColor(255, 255, 255, 255);

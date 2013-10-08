@@ -4,6 +4,7 @@
 RivarMode::RivarMode(int width, int height) {
 	this->width = width;
 	this->height = height;
+	fbo.allocate(width, height);
 }
 
 
