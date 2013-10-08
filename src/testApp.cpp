@@ -87,15 +87,22 @@ void testApp::setup(){
 		showImage[i] = false;
 	}
 	
-	// image positions
-	imagePositions[0] = ofVec2f(200, 300);
-	imagePositions[1] = ofVec2f(880, 300);
+	// image positions - normal
+	imagePositions[0] = ofVec2f(300, 350);
+	imagePositions[1] = ofVec2f(880, 350);
 	imagePositions[2] = ofVec2f(0, 0);
+	// image positions - static camera mode
+	imagePositions[3] = ofVec2f(500, 350);
+	imagePositions[4] = ofVec2f(680, 350);
+	imagePositions[5] = ofVec2f(0, 0);
 	
 	// image dimensions
-	imageDimensions[0] = ofVec2f(200, 200);
-	imageDimensions[1] = ofVec2f(200, 200);
+	imageDimensions[0] = ofVec2f(100, 100);
+	imageDimensions[1] = ofVec2f(100, 100);
 	imageDimensions[2] = ofVec2f(width, height);
+	imageDimensions[3] = ofVec2f(50, 50);
+	imageDimensions[4] = ofVec2f(50, 50);
+	imageDimensions[5] = ofVec2f(width, height);
 	
 	// start current mode
 	curMode = 0;
@@ -156,12 +163,12 @@ void testApp::draw(){
 	
 	if (drawOculus) {
 		
-		oculusRift.beginRenderSceneLeftEye();
+		oculusRift.beginRenderSceneLeftEye(modes[curMode]->useOculusOrientation);
 		drawScene(false);
 		//drawTestGraphics();
 		oculusRift.endRenderSceneLeftEye();
 		
-		oculusRift.beginRenderSceneRightEye();
+		oculusRift.beginRenderSceneRightEye(modes[curMode]->useOculusOrientation);
 		drawScene(false);
 		oculusRift.endRenderSceneRightEye();
 		
@@ -206,7 +213,11 @@ void testApp::drawScene(bool flat) {
 	for (int i=0; i<3; i++) {
 		if (showImage[i]) {
 			modes[curMode]->fbo.begin();
-			image[i].draw(imagePositions[i].x, imagePositions[i].y, imageDimensions[i].x, imageDimensions[i].y);
+			if (modes[curMode]->useOculusOrientation) {
+				image[i].draw(imagePositions[i].x, imagePositions[i].y, imageDimensions[i].x, imageDimensions[i].y);
+			} else {
+				image[i].draw(imagePositions[i+3].x, imagePositions[i+3].y, imageDimensions[i+3].x, imageDimensions[i+3].y);
+			}
 			modes[curMode]->fbo.end();
 		}
 	}
@@ -214,7 +225,7 @@ void testApp::drawScene(bool flat) {
 	
 	// draw to viewport
 	ofPushMatrix();
-	if (!flat) ofScale(1.0, -1.0); // flip y if oculus
+	if (!flat) ofScale(-1.0, -1.0); // flip y if oculus
 	
 	
 	// draw flat or on sphere

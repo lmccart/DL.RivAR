@@ -32,5 +32,6 @@ public:
 	int	height;
 	
 	ofFbo fbo;
+	bool useOculusOrientation = true; // set to false to not use oculus orientation
 };
 

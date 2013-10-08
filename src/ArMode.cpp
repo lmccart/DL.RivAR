@@ -3,6 +3,7 @@
 
 ArMode::ArMode(int width, int height) : RivarMode(width, height) {
 	
+	useOculusOrientation = false;
 	
 	// Print the markers from the "AllBchThinMarkers.png" file in the data folder
 #ifdef CAMERA_CONNECTED
