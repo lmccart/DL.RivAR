@@ -7,6 +7,7 @@ void testApp::setup(){
 	height = 720;//480;
 	
 	
+	
 	//ofSetLogLevel(OF_LOG_VERBOSE);
 	
 	ofSetVerticalSync(true);
@@ -121,16 +122,16 @@ void testApp::update(){
 	float frameDeltaTime = currTime - lastUpdateTime;
 	lastUpdateTime = currTime;
 	
-	if(		 ofGetKeyPressed('i') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() + 0.001f ); }
-	else if( ofGetKeyPressed('o') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() - 0.001f ); }
-	else if( ofGetKeyPressed('k') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() + 1.0f ); }
-	else if( ofGetKeyPressed('l') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() - 1.0f ); }
-//	
-//	if(	ofGetKeyPressed(OF_KEY_UP) )    { oculusRift.dolly(  30.0f * frameDeltaTime ); }
-//	if( ofGetKeyPressed(OF_KEY_DOWN) )  { oculusRift.dolly( -30.0f * frameDeltaTime ); }
-//	if( ofGetKeyPressed(OF_KEY_LEFT) )  { oculusRift.truck(  30.0f * frameDeltaTime ); }
-//	if( ofGetKeyPressed(OF_KEY_RIGHT) ) { oculusRift.truck( -30.0f * frameDeltaTime ); }
-//	
+	if( ofGetKeyPressed('z') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() + 0.001f ); }
+	else if( ofGetKeyPressed('x') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() - 0.001f ); }
+	else if( ofGetKeyPressed('c') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() + 1.0f ); }
+	else if( ofGetKeyPressed('v') ) { oculusRift.setInterOcularDistance( oculusRift.getInterOcularDistance() - 1.0f ); }
+	
+	if(	ofGetKeyPressed('b') ) { oculusRift.dolly(  30.0f * frameDeltaTime ); }
+	if( ofGetKeyPressed('n') ) { oculusRift.dolly( -30.0f * frameDeltaTime ); }
+	if( ofGetKeyPressed('m') ) { oculusRift.truck(  30.0f * frameDeltaTime ); }
+	if( ofGetKeyPressed(',') ) { oculusRift.truck( -30.0f * frameDeltaTime ); }
+
 	
 	if (doScreenCap == true && nowSaving == true) {
 		screenCap.grabScreen(0, 0, ofGetScreenWidth(), ofGetScreenHeight() );
@@ -160,10 +161,7 @@ void testApp::draw(){
 		oculusRift.draw( ofVec2f(0,0), ofVec2f( ofGetWidth(), ofGetHeight() ) );
 		
 	} else {
-		ofPushMatrix();
-		ofScale(1.0, -1.0);
 		drawScene(true);
-		ofPopMatrix();
 	}
 	
 	
@@ -192,18 +190,27 @@ void testApp::drawScene(bool flat) {
 //		shader.setUniform2f("mouse", mouseX - ofGetWidth()/2, ofGetHeight()/2-mouseY );
 //	}
 
-
-	ofPushMatrix();
 	
-	//ofTranslate(width/2, height/2);
-	ofScale(1.0, -1.0);
-	
+	// draw mode to fbo
 	modes[curMode]->draw();
 	
-	if (flat) {
-		modes[curMode]->fbo.draw(0, 0);
+	// add images on top
+	for (int i=0; i<3; i++) {
+		if (showImage[i]) {
+			modes[curMode]->fbo.begin();
+			image[i].draw(0, 0, width, height);
+			modes[curMode]->fbo.end();
+		}
 	}
 	
+	
+	// draw to viewport
+	ofPushMatrix();
+	if (!flat) ofScale(1.0, -1.0); // flip y if oculus
+	
+	
+	// draw flat or on sphere
+	if (flat) modes[curMode]->fbo.draw(0, 0);
 	else {
 		modes[curMode]->fbo.getTextureReference().bind();
 		sphere.draw();
@@ -212,11 +219,6 @@ void testApp::drawScene(bool flat) {
 	
 	ofPopMatrix();
 
-	//	for (int i=0; i<3; i++) {
-	//		if (showImage[i]) {
-	//			image[i].draw(0, 0, width, height);
-	//		}
-	//	}
 
 	//
 	//	if (useShader) {
@@ -269,6 +271,7 @@ void testApp::keyPressed(int key){
 	printf("key %d\n", key);
 	if(key == 'O') { // toggle oculus view
 		drawOculus = !drawOculus;
+		ofSetFullscreen(drawOculus);
 		printf("drawing to oculus set to %d\n", drawOculus);
 	}
 	
