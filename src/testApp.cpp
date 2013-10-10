@@ -110,7 +110,7 @@ void testApp::setup(){
 	
 	
 	//ofDisableArbTex();
-	sphere.set(1000, 30);
+	sphere.set(1000, 50);
 	sphere.mapTexCoordsFromTexture(modes[curMode]->fbo.getTextureReference());
 	
 }
@@ -246,6 +246,7 @@ void testApp::drawScene(bool flat) {
 	}
 	else {
 		modes[curMode]->fbo.getTextureReference().bind();
+		ofTranslate(0, 0, -800);
 		sphere.draw();
 		modes[curMode]->fbo.getTextureReference().unbind();
 	}
