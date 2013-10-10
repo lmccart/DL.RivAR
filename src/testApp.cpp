@@ -229,19 +229,24 @@ void testApp::drawScene(bool flat) {
 	
 	
 	// draw flat or on sphere
-	if (flat) modes[curMode]->fbo.draw(0, 0);
-	else {
-		modes[curMode]->fbo.getTextureReference().bind();
-		if (useShader) {
-			shader.begin();
-			shader.setUniform1f("mouseX", mouseX);
-		}
-		sphere.draw();
-		if (useShader) {
-			shader.end();
-		}
-		modes[curMode]->fbo.getTextureReference().unbind();
+
+	modes[curMode]->fbo.getTextureReference().bind();
+	if (useShader) {
+		shader.begin();
 	}
+	
+	if (flat) {
+		modes[curMode]->fbo.draw(0, 0);
+	}
+	else {
+		sphere.draw();
+	}
+	
+	if (useShader) {
+		shader.end();
+	}
+	modes[curMode]->fbo.getTextureReference().unbind();
+
 	
 	ofPopMatrix();
 
