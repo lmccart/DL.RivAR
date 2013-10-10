@@ -228,24 +228,31 @@ void testApp::drawScene(bool flat) {
 	if (!flat) ofScale(-1.0, -1.0); // flip y if oculus
 	
 	
-	// draw flat or on sphere
-
-	modes[curMode]->fbo.getTextureReference().bind();
 	if (useShader) {
 		shader.begin();
+		
+		// pass in the texture
+        shader.setUniformTexture("tex", modes[curMode]->fbo.getTextureReference(), 0);
+
+		//we want to pass in some varrying values to animate our type / color
+        shader.setUniform2f("randomVals", ofRandom(-10, 10), ofRandom(-10, 10));
+		shader.setUniform1f("time", ofGetElapsedTimef());
+		
 	}
 	
+	// draw flat or on sphere for oculus
 	if (flat) {
 		modes[curMode]->fbo.draw(0, 0);
 	}
 	else {
+		modes[curMode]->fbo.getTextureReference().bind();
 		sphere.draw();
+		modes[curMode]->fbo.getTextureReference().unbind();
 	}
 	
 	if (useShader) {
 		shader.end();
 	}
-	modes[curMode]->fbo.getTextureReference().unbind();
 
 	
 	ofPopMatrix();
