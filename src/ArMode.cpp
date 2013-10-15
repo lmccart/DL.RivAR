@@ -89,8 +89,8 @@ ArMode::ArMode(int width, int height) : RivarMode(width, height) {
 	
 	modelAlpha = 0;
 	
-	fadeOutTimer.intialize(500);
-	fadeOutTimer.start();
+	//fadeOutTimer.intialize(500);
+	//fadeOutTimer.start();
 	
 	
 	haveMarker = false;
@@ -216,9 +216,7 @@ void ArMode::drawRegular(){
 		
 		
 		if (tooSmall == true) {
-			
 			ofSetColor(0, 255, 255);
-			//	ofCircle(100,100, 30,30);
 		}
 		
 		
@@ -256,7 +254,6 @@ void ArMode::drawRegular(){
 		{
 			ofSetColor(255, 0, 255);
 			//	ofCircle(100,200, 30,30);
-			
 			//badData = true;
 		}
 		//	ofDrawBitmapString("DIFF Data = " + ofToString(diffX,0) + ",    "  + ofToString(diffY,0) + ",    " + ofToString(diffZ,0)  , 10, 100);
@@ -299,24 +296,16 @@ void ArMode::drawRegular(){
 		
 		if (haveMarkerLast == false)	
 		{
-			fadeOutTimer.start();
+			//fadeOutTimer.start();
 		}
 		haveMarkerLast = true;
 		
 		
-		float p = fadeOutTimer.getPercent();
-		if (p > 1.0) p = 1.0;
-		if (p < 0.0) p = 0;
+		//float p = ofClamp(fadeOutTimer.getPercent(), 0, 1.0);
+		//modelAlpha =  ofClamp(int(255*p), 0, 255);
 		
-
-		//if (modelAlpha < int(255*p)) {
-		//	modelAlpha =  int(255*p);
+		modelAlpha = 255.0;
 		
-		//}
-		modelAlpha =  int(255*p);
-		
-		if ( modelAlpha > 255) modelAlpha =255;
-		if (modelAlpha < 0 ) modelAlpha = 0;
 		
 		//cout << "PUVALUE:  " << p <<  "   alpha value: " << modelAlpha << endl;
 	}
@@ -324,10 +313,10 @@ void ArMode::drawRegular(){
 		haveMarker = false;
 		if (haveMarker == false && haveMarkerLast == true )
 		{
-			fadeOutTimer.start();
+			//fadeOutTimer.start();
 		}
 		haveMarkerLast = false;
-		
+		modelAlpha = 0.0;
 	}
 	
 	
@@ -349,62 +338,7 @@ void ArMode::drawRegular(){
 		}
 	}
 	
-	bool proceed = false;
-	if (numDetected == 0 || tooSmall == true || badData == true )
-	{
-		proceed = true;
-	}
-	// && fadeOutTimer.isDone() == false
-	if (proceed == true  && havePreviousMatrix == true && fadeOutTimer.isDone() == false) {
-		
-		//	if (numDetected == 0  && havePreviousMatrix == true && fadeOutTimer.isDone() == false) {
-		
-		
-		float p = 1.0 - fadeOutTimer.getPercent();
-		if ( p > 1.0) p = 1.0;
-		if (p < 0) p = 0.0;
-		p = p*p;
-		
-		
-		if (p >= 0 && p < 1.0)
-		{
-			modelAlpha = int(255*p);
-		}
-		if ( modelAlpha > 255) modelAlpha =255;
-		if (modelAlpha < 0 ) modelAlpha = 0;
-		
-		
-		//cout << "P VALUE:  " << p <<  "   alpha value: " << modelAlpha << endl;
-		
-		lastMatrix(0,0);
-		
-		float m[ 16 ];
-		m[0] = lastMatrix(0,0);
-		m[1] = lastMatrix(1,0);
-		m[2] = lastMatrix(2,0);
-		m[3] = 0;
-		
-		m[4] = lastMatrix(0,1);
-		m[5] = lastMatrix(1,1);
-		m[6] = lastMatrix(2,1);
-		m[7] = 0;
-		
-		m[8] = lastMatrix(0,2);
-		m[9] = lastMatrix(1,2);
-		m[10] = lastMatrix(2,2);
-		m[11] = 0;
-		
-		m[12] = lastMatrix(0,3);
-		m[13] = lastMatrix(1,3);
-		m[14] = lastMatrix(2,3);
-		m[15] = 1;
-		
-		glMatrixMode( GL_MODELVIEW );
-		glLoadMatrixf( m );
-		
-		drawModel();
-		//-------------
-	}
+
 	ofPopView();
 }
 
@@ -527,7 +461,7 @@ void ArMode::update() {
 		
 	}
 	
-	fadeOutTimer.update();
+	//fadeOutTimer.update();
 	
 }
 
