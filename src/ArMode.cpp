@@ -562,12 +562,14 @@ void ArMode::handleKey(int key) {
 		toggleBlackBGround = !toggleBlackBGround;
 	}
 	
-	else if (key == '+') {
+	else if (key == 61) {
 		modelScale += 0.1;
+		printf("scale %f\n", modelScale);
 		riverModel.setScale(modelScale,modelScale,modelScale);
 	}
 	else if (key == '-') {
 		modelScale -= 0.1;
+		printf("scale %f\n", modelScale);
 		riverModel.setScale(modelScale, modelScale, modelScale);
 	}
 	
