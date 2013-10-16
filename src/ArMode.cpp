@@ -135,7 +135,7 @@ void ArMode::setUpModel()
 	ofDisableSeparateSpecularLight();
 	
 	
-    riverModel.setRotation(0, 90, 1, 0, 0);
+    // riverModel.setRotation(0, 90, 1, 0, 0);
 	//	riverModel.setRotation(1, 0, 90, 90, 0);
     // riverModel.setRotation(1, 180, 0, 0, 1);
 	// riverModel.setScale(0.9, 0.9, 0.9);
