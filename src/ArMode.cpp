@@ -366,11 +366,10 @@ void ArMode::drawModel(){
 	
 	glDisable(GL_DEPTH_TEST);
 	glDisable(GL_LIGHTING);
-	
-	
-	//frameBuffer.end();
-	//ofSetColor(255, 255, 255, modelAlpha);
-	//frameBuffer.draw(0,0,ofGetScreenWidth(), ofGetScreenHeight() );
+
+//	//frameBuffer.end();
+//	//ofSetColor(255, 255, 255, modelAlpha);
+//	//frameBuffer.draw(0,0,ofGetScreenWidth(), ofGetScreenHeight() );
 	
 	glPopMatrix();
 	
@@ -400,8 +399,9 @@ void ArMode::drawData(){
 //--------------------------------------------------------------
 void ArMode::positionLights() {
 	
+	
 	ofVec3f pos =   artk.getCameraPosition(0);
-	glEnable(GL_DEPTH_TEST);
+	//glEnable(GL_DEPTH_TEST);
 	glShadeModel (GL_SMOOTH);
 	GLfloat lightOnePosition[] = {pos.x + 40.0, pos.y + 40, pos.z + 0, 0.0};
 	GLfloat lightOneColor[] = {0.99, 0.99, 0.99, 1.0};
@@ -416,6 +416,7 @@ void ArMode::positionLights() {
 	glLightfv (GL_LIGHT0, GL_POSITION, lightOnePosition);
 	glLightfv (GL_LIGHT0, GL_DIFFUSE, lightOneColor);
 	glEnable (GL_LIGHT0);
+	
 	glLightfv (GL_LIGHT1, GL_POSITION, lightTwoPosition);
 	glLightfv (GL_LIGHT1, GL_DIFFUSE, lightTwoColor);
 	glEnable (GL_LIGHT1);
@@ -425,6 +426,7 @@ void ArMode::positionLights() {
 	glEnable (GL_LIGHT2);
 	
 	glEnable (GL_LIGHTING);
+	
 	glColorMaterial (GL_FRONT_AND_BACK, GL_DIFFUSE);
 	glEnable (GL_COLOR_MATERIAL);
 	
