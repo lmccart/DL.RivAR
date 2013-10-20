@@ -193,17 +193,7 @@ void testApp::draw(){
 //--------------------------------------------------------------
 void testApp::drawScene(bool flat) {
 	
-	if (useShader) {
-		
-		
-//		//we want to pass in some varrying values to animate our type / color
-//		shader.setUniform1f("timeValX", ofGetElapsedTimef() * 0.1 );
-//		shader.setUniform1f("timeValY", -ofGetElapsedTimef() * 0.18 );
-//		
-//		//we also pass in the mouse position
-//		//we have to transform the coords to what the shader is expecting which is 0,0 in the center and y axis flipped.
-//		shader.setUniform2f("mouse", mouseX - ofGetWidth()/2, ofGetHeight()/2-mouseY );
-	}
+
 
 	
 	// draw mode to fbo

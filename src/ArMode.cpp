@@ -150,6 +150,13 @@ void ArMode::setUpModel()
 void ArMode::draw() {
 	fbo.begin();
 	
+	ofSetColor(0, 0, 0);
+	ofRect(0, 0, fbo.getWidth(), fbo.getHeight());
+	
+	ofPushMatrix();
+	ofTranslate(0.25*width, 0.25*height);
+	ofScale(0.5, 0.5);
+	
 	if (screenMode  == 0)
 	{
 		drawRegular();
@@ -158,6 +165,7 @@ void ArMode::draw() {
 		drawData();
 	}
 	
+	ofPopMatrix();
 	fbo.end();
 }
 
@@ -168,9 +176,6 @@ void ArMode::drawRegular(){
 	// Main image
 	
 	ofPushView();
-	
-	ofSetColor(0, 0, 0);
-	ofRect(0,0,ofGetScreenWidth(),ofGetScreenHeight() );
 	
 	if(toggleBlackBGround == false) {
 		ofSetColor(255, 255, 255);
